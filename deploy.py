@@ -90,16 +90,17 @@ uploaded_file = st.file_uploader("Upload file with format .csv", type="csv")
 my_text = st.text_input("Enter the text you want to classify", "Change this...", max_chars=100, key='to_classify')
 
 df = pd.DataFrame()
-
-if my_text is not None:
-    df1 = pd.DataFrame()
-    df1['content'] = my_text
+df1 = pd.DataFrame()
+df2 = pd.DataFrame()
 
 if uploaded_file is not None:
-    # read csv
     df2 = pd.read_csv(uploaded_file)
 
-df = pd.concat([df1, df2])
+if my_text is not None:
+    text_rows = my_text.split('\n')
+    df1['content'] = text_rows
+
+df = pd.concat([df1, df2], ignore_index=True)
 
 with open('best_tfidf_vocabulary_SVM.pkl', 'rb') as f:
     best_vocabulary_SVM = pickle.load(f)
