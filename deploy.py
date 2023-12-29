@@ -7,9 +7,9 @@ from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFacto
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemover, ArrayDictionary
 import string
 import regex as re
-from sklearn.utils import resample        
-from tensorflow.keras.models import load_model
-import tensorflow
+from sklearn.utils import resample    
+import tensorflow    
+import load_model
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
