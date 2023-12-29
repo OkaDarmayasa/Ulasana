@@ -7,9 +7,9 @@ from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFacto
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemover, ArrayDictionary
 import string
 import regex as re
-from sklearn.utils import resample    
-import tensorflow    
-import load_model
+from sklearn.utils import resample        
+import tensorflow
+from tensorflow.keras.models import load_model
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -19,6 +19,8 @@ import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics import classification_report
+import joblib
+
 
 nltk.download('stopwords')
 alay_dict = pd.read_csv('new_kamusalay.csv', encoding='latin-1', header=None)
@@ -90,6 +92,7 @@ my_text = st.text_input("Enter the text you want to classify", "Change this...",
 df = pd.DataFrame()
 
 if my_text is not None:
+    df1 = pd.DataFrame()
     df1['content'] = my_text
 
 if uploaded_file is not None:
@@ -102,12 +105,13 @@ with open('best_tfidf_vocabulary_SVM.pkl', 'rb') as f:
     best_vocabulary_SVM = pickle.load(f)
 
 if st.button('Classify', key='classify_button'):  
+    df["preprocessed"] = df['content'].apply(preprocess)
     # Create a new TfidfVectorizer with the loaded vocabulary
     tfidf_vectorizer_svm = TfidfVectorizer(vocabulary=best_vocabulary_SVM)  # You can adjust the max_features parameter
     X_TFIDF_SVM = tfidf_vectorizer_svm.fit_transform(df["preprocessed"]).toarray()  
     
     y = df["score"].apply(returnSentiment)
     
-    result = model_tfidf_SVM.score(X_TFIDF_SVM, y)
+    result = loaded_model.score(X_TFIDF_SVM, y)
     
     st.write("Accuracy: ", result)
