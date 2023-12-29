@@ -8,8 +8,8 @@ from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemover, Arr
 import string
 import regex as re
 from sklearn.utils import resample        
-from keras.models import load_model
-import tensorflow as tf
+from tensorflow.keras.models import load_model
+import tensorflow
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
