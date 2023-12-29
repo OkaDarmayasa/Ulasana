@@ -51,7 +51,7 @@ def stem_words(text):
   return stemmer.stem(text)
 
 # normalisasi kata tidak baku
-slang_dict = pd.read_csv('/content/drive/MyDrive/Penambangan Data Tekstual/Dataset/new_kamusalay.csv', encoding='latin-1', header=None)
+slang_dict = pd.read_csv('new_kamusalay.csv', encoding='latin-1', header=None)
 slang_dict = slang_dict.rename(columns={0: 'original',
                                       1: 'replacement'})
 slang_dict_map = dict(zip(slang_dict['original'], slang_dict['replacement']))
