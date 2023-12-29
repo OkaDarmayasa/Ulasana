@@ -112,7 +112,8 @@ if st.button('Classify', key='classify_button'):
     X_TFIDF_SVM = tfidf_vectorizer_svm.fit_transform(df["preprocessed"]).toarray()  
     
     y = df["score"].apply(returnSentiment)
-    
+    y = y.map({'negative': 0, 'positive': 1})
+
     result = loaded_model.score(X_TFIDF_SVM, y)
     
     st.write("Accuracy: ", result)
